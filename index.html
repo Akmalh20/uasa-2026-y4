@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Year 4 UASA Chinese Revision App 2026 (Ulangkaji UASA Bahasa Cina Tahun 4)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', 'Noto Sans SC', sans-serif;
+            background-color: #f8fafc;
+        }
+        .pinyin {
+            font-size: 0.85rem;
+            color: #2563eb;
+            font-weight: 600;
+            line-height: 1.1;
+        }
+        .chinese-text {
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        }
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+        }
+        .music-pulse {
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Header / Navigation Bar -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo & Bilingual Title -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center text-white font-bold text-xl shadow-md">
+                        华
+                    </div>
+                    <div>
+                        <h1 class="text-sm sm:text-base font-extrabold text-slate-900 leading-tight">
+                            Year 4 UASA Chinese Revision 2026
+                        </h1>
+                        <p class="text-xs text-blue-600 font-semibold">Ulangkaji UASA Bahasa Cina Tahun 4 2026</p>
+                    </div>
+                </div>
+
+                <!-- Global Controls: Background Music & Audio Guide -->
+                <div class="flex items-center space-x-2 sm:space-x-3">
+                    <!-- Background Music Toggle -->
+                    <button id="bgmToggleBtn" onclick="toggleBGM()" class="flex items-center space-x-1.5 bg-indigo-50 border border-indigo-200 text-indigo-700 hover:bg-indigo-100 px-3 py-1.5 rounded-xl text-xs font-bold transition">
+                        <i id="bgmIcon" class="fa-solid fa-music"></i>
+                        <span id="bgmStatusText">Music: OFF</span>
+                    </button>
+
+                    <!-- Text-to-Speech Help -->
+                    <button onclick="playGlobalHelp()" class="hidden sm:flex items-center space-x-1.5 bg-blue-50 border border-blue-200 text-blue-700 hover:bg-blue-100 px-3 py-1.5 rounded-xl text-xs font-bold transition">
+                        <i class="fa-solid fa-volume-high"></i>
+                        <span>Audio Guide</span>
+                    </button>
+
+                    <!-- Overall Progress Counter -->
+                    <div class="text-right hidden md:block border-l pl-3 border-slate-200">
+                        <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Progress / Kemajuan</div>
+                        <div class="text-xs font-extrabold text-emerald-600" id="globalProgressText">0 / 9 Completed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
+
+        <!-- Question Navigation Grid (S1 to S9) -->
+        <div class="mb-6">
+            <div class="flex items-center justify-between mb-3">
+                <h2 class="text-xs font-extrabold text-slate-500 uppercase tracking-wider">
+                    Select Practice Module / Pilih Latihan (Soalan 1 - 9)
+                </h2>
+                <span class="text-xs bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full font-bold">2026 UASA Format</span>
+            </div>
+            
+            <div class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-9 gap-2">
+                <button onclick="switchTab(1)" id="tab-btn-1" class="tab-btn active bg-blue-600 text-white font-bold py-2 px-1.5 rounded-xl text-xs text-center border transition shadow-sm hover:opacity-90">
+                    <span class="block text-[10px] opacity-80">Q1 / S1</span> Actions
+                </button>
+                <button onclick="switchTab(2)" id="tab-btn-2" class="tab-btn bg-white text-slate-700 hover:bg-slate-100 font-bold py-2 px-1.5 rounded-xl text-xs text-center border border-slate-200 transition">
+                    <span class="block text-[10px] text-slate-400">Q2 / S2</span> Festivals
+                </button>
+                <button onclick="switchTab(3)" id="tab-btn-3" class="tab-btn bg-white text-slate-700 hover:bg-slate-100 font-bold py-2 px-1.5 rounded-xl text-xs text-center border border-slate-200 transition">
+                    <span class="block text-[10px] text-slate-400">Q3 / S3</span> Matching
+                </button>
+                <button onclick="switchTab(4)" id="tab-btn-4" class="tab-btn bg-white text-slate-700 hover:bg-slate-100 font-bold py-2 px-1.5 rounded-xl text-xs text-center border border-slate-200 transition">
+                    <span class="block text-[10px] text-slate-400">Q4 / S4</span> Grammar
+                </button>
+                <button onclick="switchTab(5)" id="tab-btn-5" class="tab-btn bg-white text-slate-700 hover:bg-slate-100 font-bold py-2 px-1.5 rounded-xl text-xs text-center border border-slate-200 transition">
+                    <span class="block text-[10px] text-slate-400">Q5 / S5</span> Radicals
+                </button>
+                <button onclick="switchTab(6)" id="tab-btn-6" class="tab-btn bg-white text-slate-700 hover:bg-slate-100 font-bold py-2 px-1.5 rounded-xl text-xs text-center border border-slate-200 transition">
+                    <span class="block text-[10px] text-slate-400">Q6 / S6</span> Rewrite
+                </button>
+                <button onclick="switchTab(7)" id="tab-btn-7" class="tab-btn bg-white text-slate-700 hover:bg-slate-100 font-bold py-2 px-1.5 rounded-xl text-xs text-center border border-slate-200 transition">
+                    <span class="block text-[10px] text-slate-400">Q7 / S7</span> Sorting
+                </button>
+                <button onclick="switchTab(8)" id="tab-btn-8" class="tab-btn bg-white text-slate-700 hover:bg-slate-100 font-bold py-2 px-1.5 rounded-xl text-xs text-center border border-slate-200 transition">
+                    <span class="block text-[10px] text-slate-400">Q8 / S8</span> Punctuation
+                </button>
+                <button onclick="switchTab(9)" id="tab-btn-9" class="tab-btn bg-white text-slate-700 hover:bg-slate-100 font-bold py-2 px-1.5 rounded-xl text-xs text-center border border-slate-200 transition">
+                    <span class="block text-[10px] text-slate-400">Q9 / S9</span> Unscramble
+                </button>
+            </div>
+        </div>
+
+        <!-- SOALAN 1 PANEL (Daily Actions & Verbs) -->
+        <section id="panel-1" class="question-panel bg-white rounded-2xl border border-slate-200 p-5 sm:p-7 card-shadow">
+            <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-100 pb-4 mb-6 gap-3">
+                <div>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Question 1 / Soalan 1</span>
+                    <h3 class="text-xl font-bold text-slate-900 mt-2">Write the correct answer based on the picture / Tulis jawapan yang betul berdasarkan gambar.</h3>
+                    <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Instruction / Arahan: Memorize these action words / Hafal perkataan ini.</p>
+                </div>
+                <div class="flex items-center space-x-2 bg-amber-50 border border-amber-200 p-2.5 rounded-xl text-xs text-amber-900">
+                    <i class="fa-solid fa-volume-high text-amber-500 text-base"></i>
+                    <span><strong>Tip:</strong> Click any flashcard to hear the spoken pronunciation / Klik untuk dengar sebutan audio.</span>
+                </div>
+            </div>
+
+            <!-- Vocabulary Flashcards Showcase -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-center hover:border-blue-400 transition cursor-pointer" onclick="speak('睡觉')">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2 text-blue-600 text-xl">
+                        <i class="fa-solid fa-bed"></i>
+                    </div>
+                    <div class="pinyin">shuì jiào</div>
+                    <div class="text-2xl font-bold text-slate-800 chinese-text mt-0.5">睡觉</div>
+                    <div class="text-xs text-slate-500 mt-1 font-semibold">Sleep / Tidur</div>
+                </div>
+
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-center hover:border-blue-400 transition cursor-pointer" onclick="speak('运动')">
+                    <div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-2 text-emerald-600 text-xl">
+                        <i class="fa-solid fa-person-running"></i>
+                    </div>
+                    <div class="pinyin">yùn dòng</div>
+                    <div class="text-2xl font-bold text-slate-800 chinese-text mt-0.5">运动</div>
+                    <div class="text-xs text-slate-500 mt-1 font-semibold">Exercise / Bersenam</div>
+                </div>
+
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-center hover:border-blue-400 transition cursor-pointer" onclick="speak('刷牙')">
+                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-2 text-purple-600 text-xl">
+                        <i class="fa-solid fa-tooth"></i>
+                    </div>
+                    <div class="pinyin">shuā yá</div>
+                    <div class="text-2xl font-bold text-slate-800 chinese-text mt-0.5">刷牙</div>
+                    <div class="text-xs text-slate-500 mt-1 font-semibold">Brush Teeth / Gosok Gigi</div>
+                </div>
+
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-center hover:border-blue-400 transition cursor-pointer" onclick="speak('洗脸')">
+                    <div class="w-12 h-12 bg-cyan-100 rounded-full flex items-center justify-center mx-auto mb-2 text-cyan-600 text-xl">
+                        <i class="fa-solid fa-shower"></i>
+                    </div>
+                    <div class="pinyin">xǐ liǎn</div>
+                    <div class="text-2xl font-bold text-slate-800 chinese-text mt-0.5">洗脸</div>
+                    <div class="text-xs text-slate-500 mt-1 font-semibold">Wash Face / Cuci Muka</div>
+                </div>
+            </div>
+
+            <!-- Interactive Practice Exercises Q1 -->
+            <div class="bg-blue-50/60 rounded-2xl p-5 border border-blue-100">
+                <h4 class="font-bold text-slate-800 mb-3 text-xs sm:text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-pen-to-square text-blue-600"></i> Interactive Practice (4 Questions) / Latihan Interaktif
+                </h4>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Q1 Item 1 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-3xl">🪥</span>
+                            <div>
+                                <span class="text-[10px] text-slate-400 font-bold block uppercase">Question 1 / Soalan 1</span>
+                                <span class="text-xs sm:text-sm font-semibold text-slate-700">Brush Teeth / Gosok Gigi</span>
+                            </div>
+                        </div>
+                        <select id="q1-select-1" class="border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs sm:text-sm bg-white focus:ring-2 focus:ring-blue-500 font-medium">
+                            <option value="">Select word / Pilih...</option>
+                            <option value="睡觉">睡觉 (shuì jiào)</option>
+                            <option value="运动">运动 (yùn dòng)</option>
+                            <option value="刷牙">刷牙 (shuā yá)</option>
+                            <option value="洗脸">洗脸 (xǐ liǎn)</option>
+                        </select>
+                    </div>
+
+                    <!-- Q1 Item 2 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-3xl">🏃</span>
+                            <div>
+                                <span class="text-[10px] text-slate-400 font-bold block uppercase">Question 2 / Soalan 2</span>
+                                <span class="text-xs sm:text-sm font-semibold text-slate-700">Exercise / Bersenam</span>
+                            </div>
+                        </div>
+                        <select id="q1-select-2" class="border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs sm:text-sm bg-white focus:ring-2 focus:ring-blue-500 font-medium">
+                            <option value="">Select word / Pilih...</option>
+                            <option value="睡觉">睡觉 (shuì jiào)</option>
+                            <option value="运动">运动 (yùn dòng)</option>
+                            <option value="刷牙">刷牙 (shuā yá)</option>
+                            <option value="洗脸">洗脸 (xǐ liǎn)</option>
+                        </select>
+                    </div>
+
+                    <!-- Q1 Item 3 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-3xl">😴</span>
+                            <div>
+                                <span class="text-[10px] text-slate-400 font-bold block uppercase">Question 3 / Soalan 3</span>
+                                <span class="text-xs sm:text-sm font-semibold text-slate-700">Sleep / Tidur</span>
+                            </div>
+                        </div>
+                        <select id="q1-select-3" class="border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs sm:text-sm bg-white focus:ring-2 focus:ring-blue-500 font-medium">
+                            <option value="">Select word / Pilih...</option>
+                            <option value="睡觉">睡觉 (shuì jiào)</option>
+                            <option value="运动">运动 (yùn dòng)</option>
+                            <option value="刷牙">刷牙 (shuā yá)</option>
+                            <option value="洗脸">洗脸 (xǐ liǎn)</option>
+                        </select>
+                    </div>
+
+                    <!-- Q1 Item 4 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-3xl">🧼</span>
+                            <div>
+                                <span class="text-[10px] text-slate-400 font-bold block uppercase">Question 4 / Soalan 4</span>
+                                <span class="text-xs sm:text-sm font-semibold text-slate-700">Wash Face / Cuci Muka</span>
+                            </div>
+                        </div>
+                        <select id="q1-select-4" class="border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs sm:text-sm bg-white focus:ring-2 focus:ring-blue-500 font-medium">
+                            <option value="">Select word / Pilih...</option>
+                            <option value="睡觉">睡觉 (shuì jiào)</option>
+                            <option value="运动">运动 (yùn dòng)</option>
+                            <option value="刷牙">刷牙 (shuā yá)</option>
+                            <option value="洗脸">洗脸 (xǐ liǎn)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mt-4 flex justify-end">
+                    <button onclick="checkQ1()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-5 py-2 rounded-xl text-xs transition shadow">
+                        Check Answers / Semak Jawapan
+                    </button>
+                </div>
+                <div id="q1-feedback" class="mt-3 text-xs font-semibold hidden p-3 rounded-xl"></div>
+            </div>
+        </section>
+
+        <!-- SOALAN 2 PANEL (Festivals & Celebrations) -->
+        <section id="panel-2" class="question-panel bg-white rounded-2xl border border-slate-200 p-5 sm:p-7 card-shadow hidden">
+            <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-100 pb-4 mb-6 gap-3">
+                <div>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Question 2 / Soalan 2</span>
+                    <h3 class="text-xl font-bold text-slate-900 mt-2">Circle the correct answer based on the picture / Bulatkan jawapan yang betul.</h3>
+                    <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Instruction / Arahan: Memorize these festival terms / Hafal perkataan ini.</p>
+                </div>
+            </div>
+
+            <!-- Festival Vocabulary Showcase Cards -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 mb-8">
+                <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 text-center cursor-pointer hover:shadow" onclick="speak('中秋节')">
+                    <div class="text-2xl mb-1">🥮</div>
+                    <div class="pinyin">zhōng qiū jié</div>
+                    <div class="text-base font-bold text-slate-800 chinese-text">中秋节</div>
+                    <div class="text-[11px] text-slate-600 font-semibold">Mid-Autumn Festival / Perayaan Kuih Bulan</div>
+                </div>
+
+                <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3 text-center cursor-pointer hover:shadow" onclick="speak('开斋节')">
+                    <div class="text-2xl mb-1">🌙</div>
+                    <div class="pinyin">kāi zhāi jié</div>
+                    <div class="text-base font-bold text-slate-800 chinese-text">开斋节</div>
+                    <div class="text-[11px] text-slate-600 font-semibold">Hari Raya Aidilfitri</div>
+                </div>
+
+                <div class="bg-purple-50 border border-purple-200 rounded-xl p-3 text-center cursor-pointer hover:shadow" onclick="speak('光明节')">
+                    <div class="text-2xl mb-1">🪔</div>
+                    <div class="pinyin">guāng míng jié</div>
+                    <div class="text-base font-bold text-slate-800 chinese-text">光明节</div>
+                    <div class="text-[11px] text-slate-600 font-semibold">Deepavali / Pesta Cahaya</div>
+                </div>
+
+                <div class="bg-rose-50 border border-rose-200 rounded-xl p-3 text-center cursor-pointer hover:shadow" onclick="speak('圣诞节')">
+                    <div class="text-2xl mb-1">🎄</div>
+                    <div class="pinyin">shèng dàn jié</div>
+                    <div class="text-base font-bold text-slate-800 chinese-text">圣诞节</div>
+                    <div class="text-[11px] text-slate-600 font-semibold">Christmas / Hari Krismas</div>
+                </div>
+
+                <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-3 text-center cursor-pointer hover:shadow" onclick="speak('丰收节')">
+                    <div class="text-2xl mb-1">🌾</div>
+                    <div class="pinyin">fēng shōu jié</div>
+                    <div class="text-base font-bold text-slate-800 chinese-text">丰收节</div>
+                    <div class="text-[11px] text-slate-600 font-semibold">Harvest Festival / Pesta Menuai</div>
+                </div>
+            </div>
+
+            <!-- Practice Questions Q2 -->
+            <div class="space-y-4">
+                <!-- Practice 1 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                    <div class="text-xs font-bold text-blue-600 uppercase mb-1">Question 1 / Soalan 1</div>
+                    <p class="text-xs sm:text-sm font-bold text-slate-800 mb-3">Which Chinese name refers to <span class="text-blue-600">Hari Raya Aidilfitri</span> 🌙?</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        <button onclick="checkQ2Sub(1, '开斋节', this)" class="q2-opt-1 bg-white border border-slate-300 p-2.5 rounded-xl text-center hover:border-blue-500">
+                            <span class="pinyin block text-xs">kāi zhāi jié</span>
+                            <span class="chinese-text font-bold text-base">开斋节</span>
+                        </button>
+                        <button onclick="checkQ2Sub(1, '中秋节', this)" class="q2-opt-1 bg-white border border-slate-300 p-2.5 rounded-xl text-center hover:border-blue-500">
+                            <span class="pinyin block text-xs">zhōng qiū jié</span>
+                            <span class="chinese-text font-bold text-base">中秋节</span>
+                        </button>
+                        <button onclick="checkQ2Sub(1, '光明节', this)" class="q2-opt-1 bg-white border border-slate-300 p-2.5 rounded-xl text-center hover:border-blue-500">
+                            <span class="pinyin block text-xs">guāng míng jié</span>
+                            <span class="chinese-text font-bold text-base">光明节</span>
+                        </button>
+                        <button onclick="checkQ2Sub(1, '圣诞节', this)" class="q2-opt-1 bg-white border border-slate-300 p-2.5 rounded-xl text-center hover:border-blue-500">
+                            <span class="pinyin block text-xs">shèng dàn jié</span>
+                            <span class="chinese-text font-bold text-base">圣诞节</span>
+                        </button>
+                    </div>
+                    <div id="q2-sub-fb-1" class="mt-2 text-xs font-semibold hidden"></div>
+                </div>
+
+                <!-- Practice 2 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                    <div class="text-xs font-bold text-blue-600 uppercase mb-1">Question 2 / Soalan 2</div>
+                    <p class="text-xs sm:text-sm font-bold text-slate-800 mb-3">Which Chinese name refers to <span class="text-blue-600">Deepavali (Festival of Lights)</span> 🪔?</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        <button onclick="checkQ2Sub(2, '光明节', this)" class="q2-opt-2 bg-white border border-slate-300 p-2.5 rounded-xl text-center hover:border-blue-500">
+                            <span class="pinyin block text-xs">guāng míng jié</span>
+                            <span class="chinese-text font-bold text-base">光明节</span>
+                        </button>
+                        <button onclick="checkQ2Sub(2, '丰收节', this)" class="q2-opt-2 bg-white border border-slate-300 p-2.5 rounded-xl text-center hover:border-blue-500">
+                            <span class="pinyin block text-xs">fēng shōu jié</span>
+                            <span class="chinese-text font-bold text-base">丰收节</span>
+                        </button>
+                        <button onclick="checkQ2Sub(2, '开斋节', this)" class="q2-opt-2 bg-white border border-slate-300 p-2.5 rounded-xl text-center hover:border-blue-500">
+                            <span class="pinyin block text-xs">kāi zhāi jié</span>
+                            <span class="chinese-text font-bold text-base">开斋节</span>
+                        </button>
+                        <button onclick="checkQ2Sub(2, '中秋节', this)" class="q2-opt-2 bg-white border border-slate-300 p-2.5 rounded-xl text-center hover:border-blue-500">
+                            <span class="pinyin block text-xs">zhōng qiū jié</span>
+                            <span class="chinese-text font-bold text-base">中秋节</span>
+                        </button>
+                    </div>
+                    <div id="q2-sub-fb-2" class="mt-2 text-xs font-semibold hidden"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOALAN 3 PANEL (Pinyin Matching Game) -->
+        <section id="panel-3" class="question-panel bg-white rounded-2xl border border-slate-200 p-5 sm:p-7 card-shadow hidden">
+            <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-100 pb-4 mb-6 gap-3">
+                <div>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Question 3 / Soalan 3</span>
+                    <h3 class="text-xl font-bold text-slate-900 mt-2">Match Pinyin with the correct Chinese character / Padankan pinyin dengan karakter.</h3>
+                    <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Instruction / Arahan: Memorize these vocabulary items / Hafal perkataan ini.</p>
+                </div>
+                <div class="flex items-center space-x-2 bg-amber-50 border border-amber-200 p-2.5 rounded-xl text-xs text-amber-900">
+                    <i class="fa-solid fa-arrows-rotate text-amber-500 text-base"></i>
+                    <span>Click a Pinyin item on the left, then click the Chinese character on the right to match!</span>
+                </div>
+            </div>
+
+            <!-- Matching Game -->
+            <div class="bg-blue-50/50 border border-blue-100 rounded-2xl p-5">
+                <div class="flex justify-between items-center mb-4">
+                    <h4 class="font-bold text-slate-800 text-xs sm:text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-link text-blue-600"></i> Match 5 Vocabulary Pairs / Padankan 5 Perkataan
+                    </h4>
+                    <button onclick="resetMatching()" class="text-xs bg-white border border-slate-300 hover:bg-slate-50 px-3 py-1.5 rounded-lg font-bold text-slate-700">
+                        <i class="fa-solid fa-rotate-right mr-1"></i> Reset Game
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="matching-container">
+                    <div class="space-y-2" id="pinyin-column"></div>
+                    <div class="space-y-2" id="character-column"></div>
+                </div>
+
+                <div class="mt-4 flex items-center justify-between">
+                    <div id="q3-feedback" class="text-xs font-bold"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOALAN 4 PANEL (Sentence Order Verification) -->
+        <section id="panel-4" class="question-panel bg-white rounded-2xl border border-slate-200 p-5 sm:p-7 card-shadow hidden">
+            <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-100 pb-4 mb-6 gap-3">
+                <div>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Question 4 / Soalan 4</span>
+                    <h3 class="text-xl font-bold text-slate-900 mt-2">Read sentences and verify if word order is Correct or Wrong / Semakan Susunan Ayat (Betul / Salah).</h3>
+                    <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Instruction / Arahan: Memorize these sentence structures / Hafal ayat ini.</p>
+                </div>
+            </div>
+
+            <!-- Quiz Cards Q4 -->
+            <div class="space-y-4">
+                <!-- Sentence 1 -->
+                <div class="border border-slate-200 rounded-2xl p-4 bg-slate-50">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="text-xs font-bold text-slate-400 block mb-1">Sentence 1 / Ayat 1</span>
+                            <div class="pinyin">jīn tiān shì kāi zhāi jié .</div>
+                            <div class="text-xl font-bold text-slate-800 chinese-text">今天是开斋节。</div>
+                            <p class="text-xs text-slate-500 mt-1 font-semibold">Meaning: Today is Hari Raya Aidilfitri / Hari ini ialah Hari Raya Aidilfitri.</p>
+                        </div>
+                        <button onclick="speak('今天是开斋节')" class="text-blue-600 text-xs bg-white border p-2 rounded-lg hover:text-blue-800"><i class="fa-solid fa-volume-high text-sm"></i></button>
+                    </div>
+                    <div class="mt-3 flex items-center gap-3">
+                        <button onclick="checkQ4(1, true, this)" class="bg-white border border-slate-300 px-4 py-1.5 rounded-lg text-xs font-bold hover:bg-emerald-50 hover:border-emerald-500">✅ CORRECT / BETUL</button>
+                        <button onclick="checkQ4(1, false, this)" class="bg-white border border-slate-300 px-4 py-1.5 rounded-lg text-xs font-bold hover:bg-rose-50 hover:border-rose-500">❌ WRONG / SALAH</button>
+                        <span id="q4-fb-1" class="text-xs font-bold"></span>
+                    </div>
+                </div>
+
+                <!-- Sentence 2 -->
+                <div class="border border-slate-200 rounded-2xl p-4 bg-slate-50">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="text-xs font-bold text-slate-400 block mb-1">Sentence 2 / Ayat 2</span>
+                            <div class="pinyin">shì yī gòng bā líng jǐ .</div>
+                            <div class="text-xl font-bold text-slate-800 chinese-text">是一共八零几。</div>
+                            <p class="text-xs text-slate-500 mt-1 font-semibold">Grammar Note: Incorrect word order & missing subject / Susunan perkataan tidak teratur.</p>
+                        </div>
+                        <button onclick="speak('是一共八零几')" class="text-blue-600 text-xs bg-white border p-2 rounded-lg hover:text-blue-800"><i class="fa-solid fa-volume-high text-sm"></i></button>
+                    </div>
+                    <div class="mt-3 flex items-center gap-3">
+                        <button onclick="checkQ4(2, true, this)" class="bg-white border border-slate-300 px-4 py-1.5 rounded-lg text-xs font-bold hover:bg-emerald-50 hover:border-emerald-500">✅ CORRECT / BETUL</button>
+                        <button onclick="checkQ4(2, false, this)" class="bg-white border border-slate-300 px-4 py-1.5 rounded-lg text-xs font-bold hover:bg-rose-50 hover:border-rose-500">❌ WRONG / SALAH</button>
+                        <span id="q4-fb-2" class="text-xs font-bold"></span>
+                    </div>
+                </div>
+
+                <!-- Sentence 3 -->
+                <div class="border border-slate-200 rounded-2xl p-4 bg-slate-50">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="text-xs font-bold text-slate-400 block mb-1">Sentence 3 / Ayat 3</span>
+                            <div class="pinyin">wǒ rán hòu xǐ liǎn , xiān chī fàn .</div>
+                            <div class="text-xl font-bold text-slate-800 chinese-text">我然后洗脸，先吃饭。</div>
+                            <p class="text-xs text-slate-500 mt-1 font-semibold">Grammar Note: "先" (first) must come before "然后" (then) / "先" mesti didahulukan.</p>
+                        </div>
+                        <button onclick="speak('我然后洗脸先吃饭')" class="text-blue-600 text-xs bg-white border p-2 rounded-lg hover:text-blue-800"><i class="fa-solid fa-volume-high text-sm"></i></button>
+                    </div>
+                    <div class="mt-3 flex items-center gap-3">
+                        <button onclick="checkQ4(3, true, this)" class="bg-white border border-slate-300 px-4 py-1.5 rounded-lg text-xs font-bold hover:bg-emerald-50 hover:border-emerald-500">✅ CORRECT / BETUL</button>
+                        <button onclick="checkQ4(3, false, this)" class="bg-white border border-slate-300 px-4 py-1.5 rounded-lg text-xs font-bold hover:bg-rose-50 hover:border-rose-500">❌ WRONG / SALAH</button>
+                        <span id="q4-fb-3" class="text-xs font-bold"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOALAN 5 PANEL (Character Completion) -->
+        <section id="panel-5" class="question-panel bg-white rounded-2xl border border-slate-200 p-5 sm:p-7 card-shadow hidden">
+            <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-100 pb-4 mb-6 gap-3">
+                <div>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Question 5 / Soalan 5</span>
+                    <h3 class="text-xl font-bold text-slate-900 mt-2">Complete the characters below / Lengkapkan karakter di bawah.</h3>
+                    <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Instruction / Arahan: Memorize these 4 characters / Hafal karakter ini.</p>
+                </div>
+            </div>
+
+            <!-- Character Cards Showcase -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div class="border border-slate-200 rounded-2xl p-4 text-center bg-slate-50 hover:border-blue-400 transition cursor-pointer" onclick="speak('先')">
+                    <div class="pinyin">xiān</div>
+                    <div class="text-4xl font-extrabold text-blue-600 chinese-text my-1">先</div>
+                    <div class="text-xs font-bold text-slate-600">First / Dahulu</div>
+                </div>
+
+                <div class="border border-slate-200 rounded-2xl p-4 text-center bg-slate-50 hover:border-blue-400 transition cursor-pointer" onclick="speak('节')">
+                    <div class="pinyin">jié</div>
+                    <div class="text-4xl font-extrabold text-purple-600 chinese-text my-1">节</div>
+                    <div class="text-xs font-bold text-slate-600">Festival / Perayaan</div>
+                </div>
+
+                <div class="border border-slate-200 rounded-2xl p-4 text-center bg-slate-50 hover:border-blue-400 transition cursor-pointer" onclick="speak('睡')">
+                    <div class="pinyin">shuì</div>
+                    <div class="text-4xl font-extrabold text-indigo-600 chinese-text my-1">睡</div>
+                    <div class="text-xs font-bold text-slate-600">Sleep / Tidur</div>
+                </div>
+
+                <div class="border border-slate-200 rounded-2xl p-4 text-center bg-slate-50 hover:border-blue-400 transition cursor-pointer" onclick="speak('跑')">
+                    <div class="pinyin">pǎo</div>
+                    <div class="text-4xl font-extrabold text-emerald-600 chinese-text my-1">跑</div>
+                    <div class="text-xs font-bold text-slate-600">Run / Lari</div>
+                </div>
+            </div>
+
+            <!-- Interactive Typing Practice Q5 -->
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+                <h4 class="font-bold text-slate-800 mb-3 text-xs sm:text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-keyboard text-purple-600"></i> Type Chinese Character Practice / Latihan Menaip Karakter
+                </h4>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div class="flex items-center space-x-3 bg-white p-3 rounded-xl border border-slate-200">
+                        <span class="text-xs sm:text-sm font-bold text-slate-700">1. (⻴) + 包 = </span>
+                        <input type="text" id="q5-input-1" placeholder="Type / Taip..." class="border border-slate-300 rounded-lg px-3 py-1 text-sm w-28 chinese-text focus:ring-2 focus:ring-blue-500">
+                        <span class="text-xs text-slate-400 font-semibold">(pǎo)</span>
+                    </div>
+
+                    <div class="flex items-center space-x-3 bg-white p-3 rounded-xl border border-slate-200">
+                        <span class="text-xs sm:text-sm font-bold text-slate-700">2. (目) + 垂 = </span>
+                        <input type="text" id="q5-input-2" placeholder="Type / Taip..." class="border border-slate-300 rounded-lg px-3 py-1 text-sm w-28 chinese-text focus:ring-2 focus:ring-blue-500">
+                        <span class="text-xs text-slate-400 font-semibold">(shuì)</span>
+                    </div>
+
+                    <div class="flex items-center space-x-3 bg-white p-3 rounded-xl border border-slate-200">
+                        <span class="text-xs sm:text-sm font-bold text-slate-700">3. (艹) + 卩 = </span>
+                        <input type="text" id="q5-input-3" placeholder="Type / Taip..." class="border border-slate-300 rounded-lg px-3 py-1 text-sm w-28 chinese-text focus:ring-2 focus:ring-blue-500">
+                        <span class="text-xs text-slate-400 font-semibold">(jié)</span>
+                    </div>
+
+                    <div class="flex items-center space-x-3 bg-white p-3 rounded-xl border border-slate-200">
+                        <span class="text-xs sm:text-sm font-bold text-slate-700">4. (⺧) + 儿 = </span>
+                        <input type="text" id="q5-input-4" placeholder="Type / Taip..." class="border border-slate-300 rounded-lg px-3 py-1 text-sm w-28 chinese-text focus:ring-2 focus:ring-blue-500">
+                        <span class="text-xs text-slate-400 font-semibold">(xiān)</span>
+                    </div>
+                </div>
+
+                <div class="mt-4 flex justify-end">
+                    <button onclick="checkQ5()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-5 py-2 rounded-xl text-xs transition shadow">
+                        Check Characters / Semak Karakter
+                    </button>
+                </div>
+                <div id="q5-feedback" class="mt-3 text-xs font-semibold hidden p-3 rounded-xl"></div>
+            </div>
+        </section>
+
+        <!-- SOALAN 6 PANEL (Rewrite Sentences) -->
+        <section id="panel-6" class="question-panel bg-white rounded-2xl border border-slate-200 p-5 sm:p-7 card-shadow hidden">
+            <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-100 pb-4 mb-6 gap-3">
+                <div>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Question 6 / Soalan 6</span>
+                    <h3 class="text-xl font-bold text-slate-900 mt-2">Rewrite sentences accurately / Tulis semula ayat dengan betul.</h3>
+                    <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Instruction / Arahan: Make sure to rewrite correctly including punctuation ( 。 ). Do not skip!</p>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Sentence 1 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <span class="text-xs font-bold text-blue-600 uppercase">Sentence 1 / Ayat 1</span>
+                            <div class="pinyin">wǒ men zài qìng zhù mǎ lái xī yà rì .</div>
+                            <div class="text-base font-bold text-slate-800 chinese-text">1. 我们在庆祝马来西亚日。</div>
+                            <p class="text-xs text-slate-500">We are celebrating Malaysia Day / Kami sedang merayakan Hari Malaysia.</p>
+                        </div>
+                        <button onclick="speak('我们在庆祝马来西亚日')" class="bg-white border p-1.5 rounded-lg text-blue-600 text-xs"><i class="fa-solid fa-volume-high"></i> Audio</button>
+                    </div>
+                    <input type="text" id="q6-input-1" placeholder="Rewrite: 我们在庆祝马来西亚日。" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm chinese-text focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- Sentence 2 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <span class="text-xs font-bold text-blue-600 uppercase">Sentence 2 / Ayat 2</span>
+                            <div class="pinyin">wǒ cān jiā tiào yuǎn le .</div>
+                            <div class="text-base font-bold text-slate-800 chinese-text">2. 我参加跳远了。</div>
+                            <p class="text-xs text-slate-500">I participated in the long jump / Saya telah menyertai acara lompat jauh.</p>
+                        </div>
+                        <button onclick="speak('我参加跳远了')" class="bg-white border p-1.5 rounded-lg text-blue-600 text-xs"><i class="fa-solid fa-volume-high"></i> Audio</button>
+                    </div>
+                    <input type="text" id="q6-input-2" placeholder="Rewrite: 我参加跳远了。" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm chinese-text focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- Sentence 3 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <span class="text-xs font-bold text-blue-600 uppercase">Sentence 3 / Ayat 3</span>
+                            <div class="pinyin">wǒ yī biān chī fàn yī biān hē shuǐ .</div>
+                            <div class="text-base font-bold text-slate-800 chinese-text">3. 我一边吃饭一边喝水。</div>
+                            <p class="text-xs text-slate-500">I am eating while drinking water / Saya makan sambil minum air.</p>
+                        </div>
+                        <button onclick="speak('我一边吃饭一边喝水')" class="bg-white border p-1.5 rounded-lg text-blue-600 text-xs"><i class="fa-solid fa-volume-high"></i> Audio</button>
+                    </div>
+                    <input type="text" id="q6-input-3" placeholder="Rewrite: 我一边吃饭一边喝水。" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm chinese-text focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- Sentence 4 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <span class="text-xs font-bold text-blue-600 uppercase">Sentence 4 / Ayat 4</span>
+                            <div class="pinyin">wǒ xiān chī fàn rán hòu shuì jiào .</div>
+                            <div class="text-base font-bold text-slate-800 chinese-text">4. 我先吃饭然后睡觉。</div>
+                            <p class="text-xs text-slate-500">I eat first and then sleep / Saya makan dahulu kemudian tidur.</p>
+                        </div>
+                        <button onclick="speak('我先吃饭然后睡觉')" class="bg-white border p-1.5 rounded-lg text-blue-600 text-xs"><i class="fa-solid fa-volume-high"></i> Audio</button>
+                    </div>
+                    <input type="text" id="q6-input-4" placeholder="Rewrite: 我先吃饭然后睡觉。" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm chinese-text focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- Sentence 5 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <span class="text-xs font-bold text-blue-600 uppercase">Sentence 5 / Ayat 5</span>
+                            <div class="pinyin">jīn tiān shì guāng míng jié .</div>
+                            <div class="text-base font-bold text-slate-800 chinese-text">5. 今天是光明节。</div>
+                            <p class="text-xs text-slate-500">Today is Deepavali / Hari ini ialah Hari Deepavali.</p>
+                        </div>
+                        <button onclick="speak('今天是光明节')" class="bg-white border p-1.5 rounded-lg text-blue-600 text-xs"><i class="fa-solid fa-volume-high"></i> Audio</button>
+                    </div>
+                    <input type="text" id="q6-input-5" placeholder="Rewrite: 今天是光明节。" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm chinese-text focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <div class="pt-2 flex justify-end">
+                    <button onclick="checkQ6()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2.5 rounded-xl text-xs transition shadow">
+                        Verify Rewritten Sentences / Semak Salinan Ayat
+                    </button>
+                </div>
+                <div id="q6-feedback" class="text-xs font-semibold hidden p-3 rounded-xl"></div>
+            </div>
+        </section>
+
+        <!-- SOALAN 7 PANEL (Radical Bucket Sorting Table) -->
+        <section id="panel-7" class="question-panel bg-white rounded-2xl border border-slate-200 p-5 sm:p-7 card-shadow hidden">
+            <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-100 pb-4 mb-6 gap-3">
+                <div>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Question 7 / Soalan 7</span>
+                    <h3 class="text-xl font-bold text-slate-900 mt-2">Classify Chinese characters into correct radical columns / Susun mengikut jadual radikal.</h3>
+                    <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Instruction / Arahan: Study and memorize these 10 radical characters first / Pelajari & hafal 10 karakter radikal ini dahulu.</p>
+                </div>
+                <div class="flex items-center space-x-2 bg-amber-50 border border-amber-200 p-2.5 rounded-xl text-xs text-amber-900">
+                    <i class="fa-solid fa-graduation-cap text-amber-500 text-base"></i>
+                    <span><strong>Step 1:</strong> Study the notes below. <strong>Step 2:</strong> Solve the table practice!</span>
+                </div>
+            </div>
+
+            <!-- TEACHING & STUDY SHOWCASE / NOTA ULANGKAJI & PENGAJARAN (SOALAN 7) -->
+            <div class="mb-8 bg-indigo-50/50 border border-indigo-100 rounded-2xl p-5">
+                <h4 class="font-bold text-indigo-950 text-sm sm:text-base mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-book-open text-indigo-600"></i> Study Showcase: Radical Classification / Nota Pengajaran Radikal
+                </h4>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- Eye Radical Showcase Column -->
+                    <div class="bg-white border-2 border-indigo-200 rounded-xl p-4 shadow-sm">
+                        <div class="flex items-center space-x-3 mb-3 border-b pb-2 border-slate-100">
+                            <span class="w-9 h-9 bg-indigo-600 text-white font-bold rounded-lg flex items-center justify-center text-xl chinese-text">目</span>
+                            <div>
+                                <h5 class="font-extrabold text-indigo-950 text-xs sm:text-sm">Eye Radical / Radikal Mata : 目 部首</h5>
+                                <p class="text-[11px] text-indigo-600 font-semibold">Related to eyes, looking & sight (5 characters)</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-5 gap-1.5 text-center">
+                            <div class="bg-slate-50 p-2 rounded-lg border border-slate-200 cursor-pointer hover:border-indigo-400" onclick="speak('看')">
+                                <div class="pinyin text-[10px]">kàn</div>
+                                <div class="chinese-text font-bold text-lg text-slate-800">看</div>
+                                <div class="text-[9px] text-slate-500">Look / Lihat</div>
+                            </div>
+                            <div class="bg-slate-50 p-2 rounded-lg border border-slate-200 cursor-pointer hover:border-indigo-400" onclick="speak('眼')">
+                                <div class="pinyin text-[10px]">yǎn</div>
+                                <div class="chinese-text font-bold text-lg text-slate-800">眼</div>
+                                <div class="text-[9px] text-slate-500">Eye / Mata</div>
+                            </div>
+                            <div class="bg-slate-50 p-2 rounded-lg border border-slate-200 cursor-pointer hover:border-indigo-400" onclick="speak('瞧')">
+                                <div class="pinyin text-[10px]">qiáo</div>
+                                <div class="chinese-text font-bold text-lg text-slate-800">瞧</div>
+                                <div class="text-[9px] text-slate-500">Glance / Jeling</div>
+                            </div>
+                            <div class="bg-slate-50 p-2 rounded-lg border border-slate-200 cursor-pointer hover:border-indigo-400" onclick="speak('瞒')">
+                                <div class="pinyin text-[10px]">mán</div>
+                                <div class="chinese-text font-bold text-lg text-slate-800">瞒</div>
+                                <div class="text-[9px] text-slate-500">Hide / Sembunyi</div>
+                            </div>
+                            <div class="bg-slate-50 p-2 rounded-lg border border-slate-200 cursor-pointer hover:border-indigo-400" onclick="speak('睛')">
+                                <div class="pinyin text-[10px]">jīng</div>
+                                <div class="chinese-text font-bold text-lg text-slate-800">睛</div>
+                                <div class="text-[9px] text-slate-500">Pupil / Anak mata</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sun/Time Radical Showcase Column -->
+                    <div class="bg-white border-2 border-amber-200 rounded-xl p-4 shadow-sm">
+                        <div class="flex items-center space-x-3 mb-3 border-b pb-2 border-slate-100">
+                            <span class="w-9 h-9 bg-amber-600 text-white font-bold rounded-lg flex items-center justify-center text-xl chinese-text">日</span>
+                            <div>
+                                <h5 class="font-extrabold text-amber-950 text-xs sm:text-sm">Sun & Time Radical / Radikal Masa : 日 部首</h5>
+                                <p class="text-[11px] text-amber-600 font-semibold">Related to time, sun & days (5 characters)</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-5 gap-1.5 text-center">
+                            <div class="bg-slate-50 p-2 rounded-lg border border-slate-200 cursor-pointer hover:border-amber-400" onclick="speak('时')">
+                                <div class="pinyin text-[10px]">shí</div>
+                                <div class="chinese-text font-bold text-lg text-slate-800">时</div>
+                                <div class="text-[9px] text-slate-500">Time / Masa</div>
+                            </div>
+                            <div class="bg-slate-50 p-2 rounded-lg border border-slate-200 cursor-pointer hover:border-amber-400" onclick="speak('晚')">
+                                <div class="pinyin text-[10px]">wǎn</div>
+                                <div class="chinese-text font-bold text-lg text-slate-800">晚</div>
+                                <div class="text-[9px] text-slate-500">Night / Malam</div>
+                            </div>
+                            <div class="bg-slate-50 p-2 rounded-lg border border-slate-200 cursor-pointer hover:border-amber-400" onclick="speak('昨')">
+                                <div class="pinyin text-[10px]">zuó</div>
+                                <div class="chinese-text font-bold text-lg text-slate-800">昨</div>
+                                <div class="text-[9px] text-slate-500">Yesterday / Semalam</div>
+                            </div>
+                            <div class="bg-slate-50 p-2 rounded-lg border border-slate-200 cursor-pointer hover:border-amber-400" onclick="speak('早')">
+                                <div class="pinyin text-[10px]">zǎo</div>
+                                <div class="chinese-text font-bold text-lg text-slate-800">早</div>
+                                <div class="text-[9px] text-slate-500">Morning / Pagi</div>
+                            </div>
+                            <div class="bg-slate-50 p-2 rounded-lg border border-slate-200 cursor-pointer hover:border-amber-400" onclick="speak('间')">
+                                <div class="pinyin text-[10px]">jiān</div>
+                                <div class="chinese-text font-bold text-lg text-slate-800">间</div>
+                                <div class="text-[9px] text-slate-500">Space / Ruang</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Radical Table Interactive Sorting Box Practice -->
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 mb-6">
+                <div class="flex justify-between items-center mb-3">
+                    <h4 class="font-bold text-slate-800 text-xs sm:text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-puzzle-piece text-indigo-600"></i> Interactive Practice: Radical Sorting Game / Latihan Interaktif
+                    </h4>
+                    <button onclick="resetQ7Table()" class="text-xs bg-white border border-slate-300 hover:bg-slate-100 px-3 py-1 rounded-lg text-slate-600 font-bold">
+                        <i class="fa-solid fa-rotate-right mr-1"></i> Reset Table
+                    </button>
+                </div>
+
+                <!-- Unsorted Pool -->
+                <div id="q7-pool" class="flex flex-wrap gap-2.5 p-3 bg-white rounded-xl border border-slate-200 min-h-[60px] items-center mb-6">
+                    <!-- Populated via JS -->
+                </div>
+
+                <!-- Radical Columns Table -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Column 目 -->
+                    <div class="bg-indigo-50/70 border-2 border-indigo-200 rounded-2xl p-4">
+                        <div class="flex items-center space-x-3 mb-3 border-b border-indigo-200 pb-2">
+                            <div class="w-10 h-10 bg-indigo-600 text-white rounded-xl flex items-center justify-center font-bold text-2xl chinese-text shadow-sm">
+                                目
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-indigo-950 text-sm">Eye Radical / Radikal Mata : 目 部首</h5>
+                                <p class="text-[11px] text-indigo-700 font-semibold">Related to eyes, sight & vision (5 characters)</p>
+                            </div>
+                        </div>
+                        <div id="q7-col-mu" class="min-h-[120px] bg-white rounded-xl p-3 border border-indigo-100 flex flex-wrap gap-2 content-start cursor-pointer hover:border-indigo-400 transition">
+                            <span class="text-xs text-slate-400 w-full text-center my-auto pointer-events-none" id="q7-mu-placeholder">Click selected character above to place in 目 radical column...</span>
+                        </div>
+                    </div>
+
+                    <!-- Column 日 -->
+                    <div class="bg-amber-50/70 border-2 border-amber-200 rounded-2xl p-4">
+                        <div class="flex items-center space-x-3 mb-3 border-b border-amber-200 pb-2">
+                            <div class="w-10 h-10 bg-amber-600 text-white rounded-xl flex items-center justify-center font-bold text-2xl chinese-text shadow-sm">
+                                日
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-amber-950 text-sm">Sun & Time Radical / Radikal Masa : 日 部首</h5>
+                                <p class="text-[11px] text-amber-700 font-semibold">Related to time, sun & days (5 characters)</p>
+                            </div>
+                        </div>
+                        <div id="q7-col-ri" class="min-h-[120px] bg-white rounded-xl p-3 border border-amber-100 flex flex-wrap gap-2 content-start cursor-pointer hover:border-amber-400 transition">
+                            <span class="text-xs text-slate-400 w-full text-center my-auto pointer-events-none" id="q7-ri-placeholder">Click selected character above to place in 日 radical column...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-5 flex justify-end">
+                    <button onclick="checkQ7Table()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-2.5 rounded-xl text-xs transition shadow">
+                        Validate Table Classification / Semak Jadual
+                    </button>
+                </div>
+                <div id="q7-feedback" class="mt-3 text-xs font-semibold hidden p-3 rounded-xl"></div>
+            </div>
+        </section>
+
+        <!-- SOALAN 8 PANEL (Punctuation) -->
+        <section id="panel-8" class="question-panel bg-white rounded-2xl border border-slate-200 p-5 sm:p-7 card-shadow hidden">
+            <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-100 pb-4 mb-6 gap-3">
+                <div>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Question 8 / Soalan 8</span>
+                    <h3 class="text-xl font-bold text-slate-900 mt-2">Insert the correct punctuation marks / Masukkan tanda baca yang betul.</h3>
+                    <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Instruction / Arahan: Study Chinese punctuation rules first / Pelajari peraturan tanda baca Cina ini dahulu.</p>
+                </div>
+            </div>
+
+            <!-- TEACHING & STUDY SHOWCASE / NOTA ULANGKAJI & PENGAJARAN (SOALAN 8) -->
+            <div class="mb-8 bg-blue-50/50 border border-blue-100 rounded-2xl p-5">
+                <h4 class="font-bold text-slate-900 text-sm sm:text-base mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-graduation-cap text-blue-600"></i> Study Showcase: Punctuation Rules / Nota Tanda Baca
+                </h4>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+                    <!-- Rule 1: Enumeration Comma -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200">
+                        <div class="flex items-center space-x-2 mb-1 text-blue-600 font-extrabold text-lg">
+                            <span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded text-sm font-bold">顿号</span>
+                            <span class="text-2xl font-bold">、</span>
+                        </div>
+                        <h5 class="font-bold text-xs text-slate-800">Enumeration Comma / Koma Senarai</h5>
+                        <p class="text-[11px] text-slate-500 mt-1">Used to separate listed items or words (e.g., 面粉、糖和鸡蛋).</p>
+                    </div>
+
+                    <!-- Rule 2: Question Mark -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200">
+                        <div class="flex items-center space-x-2 mb-1 text-purple-600 font-extrabold text-lg">
+                            <span class="bg-purple-100 text-purple-800 px-2 py-0.5 rounded text-sm font-bold">问号</span>
+                            <span class="text-2xl font-bold">？</span>
+                        </div>
+                        <h5 class="font-bold text-xs text-slate-800">Question Mark / Tanda Soalan</h5>
+                        <p class="text-[11px] text-slate-500 mt-1">Used at the end of a question (e.g., 什么节日？).</p>
+                    </div>
+
+                    <!-- Rule 3: Full Stop -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200">
+                        <div class="flex items-center space-x-2 mb-1 text-emerald-600 font-extrabold text-lg">
+                            <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-sm font-bold">句号</span>
+                            <span class="text-2xl font-bold">。</span>
+                        </div>
+                        <h5 class="font-bold text-xs text-slate-800">Full Stop / Tanda Noktah</h5>
+                        <p class="text-[11px] text-slate-500 mt-1">Used at the end of a complete statement (e.g., 我在洗手。).</p>
+                    </div>
+                </div>
+
+                <!-- Correct Target Sentences Display -->
+                <div class="bg-white p-4 rounded-xl border border-slate-200">
+                    <h5 class="font-extrabold text-xs text-slate-700 uppercase tracking-wider mb-2">Target Sentences to Memorize / Hafal 4 Ayat Ini:</h5>
+                    <div class="space-y-2 text-xs sm:text-sm font-semibold">
+                        <div class="flex items-center justify-between border-b pb-1.5 border-slate-100 cursor-pointer hover:text-blue-600" onclick="speak('我要买面粉、糖和鸡蛋。')">
+                            <span>1. 我要买面粉<span class="text-blue-600 font-bold">、</span>糖和鸡蛋<span class="text-emerald-600 font-bold">。</span> <span class="pinyin text-[11px] ml-2">wǒ yào mǎi miàn fěn , táng hé jī dàn .</span></span>
+                            <i class="fa-solid fa-volume-high text-xs text-slate-400"></i>
+                        </div>
+                        <div class="flex items-center justify-between border-b pb-1.5 border-slate-100 cursor-pointer hover:text-blue-600" onclick="speak('你们在庆祝什么节日？')">
+                            <span>2. 你们在庆祝什么节日<span class="text-purple-600 font-bold">？</span> <span class="pinyin text-[11px] ml-2">nǐ men zài qìng zhù shén me jié rì ?</span></span>
+                            <i class="fa-solid fa-volume-high text-xs text-slate-400"></i>
+                        </div>
+                        <div class="flex items-center justify-between border-b pb-1.5 border-slate-100 cursor-pointer hover:text-blue-600" onclick="speak('我参加跳高。')">
+                            <span>3. 我参加跳高<span class="text-emerald-600 font-bold">。</span> <span class="pinyin text-[11px] ml-2">wǒ cān jiā tiào gāo .</span></span>
+                            <i class="fa-solid fa-volume-high text-xs text-slate-400"></i>
+                        </div>
+                        <div class="flex items-center justify-between cursor-pointer hover:text-blue-600" onclick="speak('我在洗手。')">
+                            <span>4. 我在洗手<span class="text-emerald-600 font-bold">。</span> <span class="pinyin text-[11px] ml-2">wǒ zài xǐ shǒu .</span></span>
+                            <i class="fa-solid fa-volume-high text-xs text-slate-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Punctuation Selector Exercises -->
+            <div class="bg-blue-50/50 border border-blue-100 rounded-2xl p-5">
+                <h4 class="font-bold text-slate-800 mb-3 text-xs sm:text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-pen-fancy text-blue-600"></i> Interactive Practice: Fill in Punctuation / Latihan Interaktif
+                </h4>
+                
+                <div class="space-y-3">
+                    <!-- Sentence 1 -->
+                    <div class="bg-white p-3.5 rounded-xl border border-slate-200 flex items-center space-x-2 flex-wrap gap-y-1">
+                        <span class="text-xs font-bold text-blue-600 w-full">Sentence 1 / Ayat 1:</span>
+                        <span class="text-sm font-semibold chinese-text">我要买面粉</span>
+                        <select id="q8-input-1" class="border border-slate-300 rounded px-2 py-1 text-base font-bold bg-slate-50">
+                            <option value="">?</option>
+                            <option value="。">。</option>
+                            <option value="？">？</option>
+                            <option value="、">、</option>
+                        </select>
+                        <span class="text-sm font-semibold chinese-text">糖和鸡蛋</span>
+                        <select id="q8-input-2" class="border border-slate-300 rounded px-2 py-1 text-base font-bold bg-slate-50">
+                            <option value="">?</option>
+                            <option value="。">。</option>
+                            <option value="？">？</option>
+                            <option value="、">、</option>
+                        </select>
+                    </div>
+
+                    <!-- Sentence 2 -->
+                    <div class="bg-white p-3.5 rounded-xl border border-slate-200 flex items-center space-x-2 flex-wrap gap-y-1">
+                        <span class="text-xs font-bold text-blue-600 w-full">Sentence 2 / Ayat 2:</span>
+                        <span class="text-sm font-semibold chinese-text">你们在庆祝什么节日</span>
+                        <select id="q8-input-3" class="border border-slate-300 rounded px-2 py-1 text-base font-bold bg-slate-50">
+                            <option value="">?</option>
+                            <option value="。">。</option>
+                            <option value="？">？</option>
+                            <option value="、">、</option>
+                        </select>
+                    </div>
+
+                    <!-- Sentence 3 -->
+                    <div class="bg-white p-3.5 rounded-xl border border-slate-200 flex items-center space-x-2 flex-wrap gap-y-1">
+                        <span class="text-xs font-bold text-blue-600 w-full">Sentence 3 / Ayat 3:</span>
+                        <span class="text-sm font-semibold chinese-text">我参加跳高</span>
+                        <select id="q8-input-4" class="border border-slate-300 rounded px-2 py-1 text-base font-bold bg-slate-50">
+                            <option value="">?</option>
+                            <option value="。">。</option>
+                            <option value="？">？</option>
+                            <option value="、">、</option>
+                        </select>
+                    </div>
+
+                    <!-- Sentence 4 -->
+                    <div class="bg-white p-3.5 rounded-xl border border-slate-200 flex items-center space-x-2 flex-wrap gap-y-1">
+                        <span class="text-xs font-bold text-blue-600 w-full">Sentence 4 / Ayat 4:</span>
+                        <span class="text-sm font-semibold chinese-text">我在洗手</span>
+                        <select id="q8-input-5" class="border border-slate-300 rounded px-2 py-1 text-base font-bold bg-slate-50">
+                            <option value="">?</option>
+                            <option value="。">。</option>
+                            <option value="？">？</option>
+                            <option value="、">、</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mt-4 flex justify-end">
+                    <button onclick="checkQ8()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-5 py-2 rounded-xl text-xs transition shadow">
+                        Check Punctuation / Semak Tanda Baca
+                    </button>
+                </div>
+                <div id="q8-feedback" class="mt-3 text-xs font-semibold hidden p-3 rounded-xl"></div>
+            </div>
+        </section>
+
+        <!-- SOALAN 9 PANEL (Unscramble Sentences) -->
+        <section id="panel-9" class="question-panel bg-white rounded-2xl border border-slate-200 p-5 sm:p-7 card-shadow hidden">
+            <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-100 pb-4 mb-6 gap-3">
+                <div>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Question 9 / Soalan 9</span>
+                    <h3 class="text-xl font-bold text-slate-900 mt-2">Unscramble words to construct correct sentences / Susun ayat dengan betul.</h3>
+                    <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Instruction / Arahan: Memorize these 3 sentence structures first / Hafal 3 struktur ayat ini dahulu.</p>
+                </div>
+            </div>
+
+            <!-- TEACHING & STUDY SHOWCASE / NOTA ULANGKAJI & PENGAJARAN (SOALAN 9) -->
+            <div class="mb-8 bg-amber-50/50 border border-amber-100 rounded-2xl p-5">
+                <h4 class="font-bold text-slate-900 text-sm sm:text-base mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-graduation-cap text-amber-600"></i> Study Showcase: Master Sentences / Hafal 3 Ayat Ini
+                </h4>
+
+                <div class="space-y-3">
+                    <!-- Sentence 1 Flashcard -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <span class="text-[10px] text-blue-600 font-extrabold uppercase">1. Action Pattern / Ayat Action</span>
+                            <div class="pinyin">wǒ zài yùn dòng .</div>
+                            <div class="chinese-text font-bold text-lg text-slate-800">我在运动。</div>
+                            <div class="text-xs text-slate-500 font-semibold">I am exercising / Saya sedang bersenam.</div>
+                        </div>
+                        <button onclick="speak('我在运动。')" class="self-start sm:self-center bg-blue-50 text-blue-700 border border-blue-200 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5">
+                            <i class="fa-solid fa-volume-high"></i> Listen Audio
+                        </button>
+                    </div>
+
+                    <!-- Sentence 2 Flashcard -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <span class="text-[10px] text-purple-600 font-extrabold uppercase">2. Sequence Pattern (先 ... 然后)</span>
+                            <div class="pinyin">bà ba xiān chī fàn , rán hòu shuā yá .</div>
+                            <div class="chinese-text font-bold text-lg text-slate-800">爸爸先吃饭，然后刷牙。</div>
+                            <div class="text-xs text-slate-500 font-semibold">Dad eats first, then brushes teeth / Ayah makan dahulu, kemudian gosok gigi.</div>
+                        </div>
+                        <button onclick="speak('爸爸先吃饭，然后刷牙。')" class="self-start sm:self-center bg-purple-50 text-purple-700 border border-purple-200 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5">
+                            <i class="fa-solid fa-volume-high"></i> Listen Audio
+                        </button>
+                    </div>
+
+                    <!-- Sentence 3 Flashcard -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <span class="text-[10px] text-emerald-600 font-extrabold uppercase">3. Time Routine Pattern / Ayat Routine Masa</span>
+                            <div class="pinyin">bà ba zǎo shang liù shí tī zú qiú .</div>
+                            <div class="chinese-text font-bold text-lg text-slate-800">爸爸早上六时踢足球。</div>
+                            <div class="text-xs text-slate-500 font-semibold">Dad plays football at 6:00 AM / Ayah bermain bola sepak pada 6:00 pagi.</div>
+                        </div>
+                        <button onclick="speak('爸爸早上六时踢足球。')" class="self-start sm:self-center bg-emerald-50 text-emerald-700 border border-emerald-200 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5">
+                            <i class="fa-solid fa-volume-high"></i> Listen Audio
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sentence Unscramble Practice Sets -->
+            <div class="space-y-6">
+                <!-- Sentence 1 Practice -->
+                <div class="bg-blue-50/50 border border-blue-100 rounded-2xl p-5">
+                    <h4 class="font-bold text-slate-800 mb-1 text-xs sm:text-sm">Interactive Practice 1 / Latihan Interaktif 1</h4>
+                    <p class="text-xs text-slate-500 mb-3">Click word tiles below to form sentence: [我在运动。]</p>
+
+                    <div class="flex flex-wrap gap-2 mb-3" id="word-pool-1">
+                        <button onclick="addWordToSentence(1, '我在')" class="bg-white border px-3 py-1.5 rounded-xl font-bold text-sm hover:border-blue-500">我在</button>
+                        <button onclick="addWordToSentence(1, '运动。')" class="bg-white border px-3 py-1.5 rounded-xl font-bold text-sm hover:border-blue-500">运动。</button>
+                    </div>
+
+                    <div class="bg-white p-3 rounded-xl border border-slate-200 min-h-[44px] flex items-center space-x-1" id="constructed-sentence-1">
+                        <span class="text-xs text-slate-400">Click word tiles above to arrange sentence...</span>
+                    </div>
+
+                    <div class="mt-3 flex space-x-2">
+                        <button onclick="checkQ9Set(1, '我在运动。')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-1.5 rounded-xl text-xs">Check Sentence 1</button>
+                        <button onclick="clearQ9Set(1)" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-3 py-1.5 rounded-xl text-xs">Clear</button>
+                    </div>
+                    <div id="q9-feedback-1" class="mt-2 text-xs font-semibold hidden p-2.5 rounded-xl"></div>
+                </div>
+
+                <!-- Sentence 2 Practice -->
+                <div class="bg-purple-50/50 border border-purple-100 rounded-2xl p-5">
+                    <h4 class="font-bold text-slate-800 mb-1 text-xs sm:text-sm">Interactive Practice 2 / Latihan Interaktif 2</h4>
+                    <p class="text-xs text-slate-500 mb-3">Click word tiles below to form sentence: [爸爸先吃饭，然后刷牙。]</p>
+
+                    <div class="flex flex-wrap gap-2 mb-3" id="word-pool-2">
+                        <button onclick="addWordToSentence(2, '爸爸')" class="bg-white border px-3 py-1.5 rounded-xl font-bold text-sm hover:border-purple-500">爸爸</button>
+                        <button onclick="addWordToSentence(2, '先吃饭，')" class="bg-white border px-3 py-1.5 rounded-xl font-bold text-sm hover:border-purple-500">先吃饭，</button>
+                        <button onclick="addWordToSentence(2, '然后刷牙。')" class="bg-white border px-3 py-1.5 rounded-xl font-bold text-sm hover:border-purple-500">然后刷牙。</button>
+                    </div>
+
+                    <div class="bg-white p-3 rounded-xl border border-slate-200 min-h-[44px] flex items-center space-x-1" id="constructed-sentence-2">
+                        <span class="text-xs text-slate-400">Click word tiles above to arrange sentence...</span>
+                    </div>
+
+                    <div class="mt-3 flex space-x-2">
+                        <button onclick="checkQ9Set(2, '爸爸先吃饭，然后刷牙。')" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-4 py-1.5 rounded-xl text-xs">Check Sentence 2</button>
+                        <button onclick="clearQ9Set(2)" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-3 py-1.5 rounded-xl text-xs">Clear</button>
+                    </div>
+                    <div id="q9-feedback-2" class="mt-2 text-xs font-semibold hidden p-2.5 rounded-xl"></div>
+                </div>
+
+                <!-- Sentence 3 Practice -->
+                <div class="bg-emerald-50/50 border border-emerald-100 rounded-2xl p-5">
+                    <h4 class="font-bold text-slate-800 mb-1 text-xs sm:text-sm">Interactive Practice 3 / Latihan Interaktif 3</h4>
+                    <p class="text-xs text-slate-500 mb-3">Click word tiles below to form sentence: [爸爸早上六时踢足球。]</p>
+
+                    <div class="flex flex-wrap gap-2 mb-3" id="word-pool-3">
+                        <button onclick="addWordToSentence(3, '爸爸')" class="bg-white border px-3 py-1.5 rounded-xl font-bold text-sm hover:border-emerald-500">爸爸</button>
+                        <button onclick="addWordToSentence(3, '早上')" class="bg-white border px-3 py-1.5 rounded-xl font-bold text-sm hover:border-emerald-500">早上</button>
+                        <button onclick="addWordToSentence(3, '六时')" class="bg-white border px-3 py-1.5 rounded-xl font-bold text-sm hover:border-emerald-500">六时</button>
+                        <button onclick="addWordToSentence(3, '踢足球。')" class="bg-white border px-3 py-1.5 rounded-xl font-bold text-sm hover:border-emerald-500">踢足球。</button>
+                    </div>
+
+                    <div class="bg-white p-3 rounded-xl border border-slate-200 min-h-[44px] flex items-center space-x-1" id="constructed-sentence-3">
+                        <span class="text-xs text-slate-400">Click word tiles above to arrange sentence...</span>
+                    </div>
+
+                    <div class="mt-3 flex space-x-2">
+                        <button onclick="checkQ9Set(3, '爸爸早上六时踢足球。')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-1.5 rounded-xl text-xs">Check Sentence 3</button>
+                        <button onclick="clearQ9Set(3)" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-3 py-1.5 rounded-xl text-xs">Clear</button>
+                    </div>
+                    <div id="q9-feedback-3" class="mt-2 text-xs font-semibold hidden p-2.5 rounded-xl"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 mt-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500">
+            <p>Year 4 UASA Chinese Interactive Revision App 2026 • Ulangkaji UASA Bahasa Cina Tahun 4 2026</p>
+        </div>
+    </footer>
+
+    <!-- Application Logic & Background Music Synthesizer -->
+    <script>
+        const completedQuestions = new Set();
+
+        /* Web Audio API Synthesizer Background Music Generator */
+        let audioCtx = null;
+        let isBGMPlaying = false;
+        let musicInterval = null;
+
+        const melodyNotes = [
+            261.63, 293.66, 329.63, 392.00, 440.00, // C4, D4, E4, G4, A4 (Pentatonic scale)
+            523.25, 440.00, 392.00, 329.63, 293.66
+        ];
+        let noteIndex = 0;
+
+        function initAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playNote(freq, duration) {
+            if (!audioCtx || audioCtx.state !== 'running') return;
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc.type = 'triangle'; // Soft acoustic sound
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+                gain.gain.setValueAtTime(0.04, audioCtx.currentTime); // Gentle background volume
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch (e) {
+                console.error("Audio synth error:", e);
+            }
+        }
+
+        function toggleBGM() {
+            initAudioContext();
+
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            const btn = document.getElementById('bgmToggleBtn');
+            const icon = document.getElementById('bgmIcon');
+            const statusText = document.getElementById('bgmStatusText');
+
+            if (isBGMPlaying) {
+                // Stop music
+                clearInterval(musicInterval);
+                isBGMPlaying = false;
+                btn.classList.remove('bg-indigo-600', 'text-white', 'music-pulse');
+                btn.classList.add('bg-indigo-50', 'text-indigo-700');
+                icon.className = 'fa-solid fa-music';
+                statusText.innerText = 'Music: OFF';
+            } else {
+                // Start music loop
+                isBGMPlaying = true;
+                btn.classList.remove('bg-indigo-50', 'text-indigo-700');
+                btn.classList.add('bg-indigo-600', 'text-white', 'music-pulse');
+                icon.className = 'fa-solid fa-volume-high';
+                statusText.innerText = 'Music: ON 🎵';
+
+                musicInterval = setInterval(() => {
+                    const freq = melodyNotes[noteIndex % melodyNotes.length];
+                    playNote(freq, 0.4);
+                    noteIndex++;
+                }, 400);
+            }
+        }
+
+        /* Text-to-Speech SpeechSynthesis */
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'zh-CN';
+                utterance.rate = 0.8;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function playGlobalHelp() {
+            speak('Welcome to Year 4 UASA Chinese Revision 2026. Click any text to listen to Chinese pronunciation.');
+        }
+
+        function switchTab(questionNum) {
+            document.querySelectorAll('.question-panel').forEach(panel => panel.classList.add('hidden'));
+            const activePanel = document.getElementById(`panel-${questionNum}`);
+            if (activePanel) activePanel.classList.remove('hidden');
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'text-white');
+                btn.classList.add('bg-white', 'text-slate-700');
+            });
+
+            const activeBtn = document.getElementById(`tab-btn-${questionNum}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-white', 'text-slate-700');
+                activeBtn.classList.add('bg-blue-600', 'text-white');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function markQuestionCompleted(num) {
+            completedQuestions.add(num);
+            document.getElementById('globalProgressText').innerText = `${completedQuestions.size} / 9 Completed`;
+        }
+
+        /* Question 1 Handler */
+        function checkQ1() {
+            const ans1 = document.getElementById('q1-select-1').value;
+            const ans2 = document.getElementById('q1-select-2').value;
+            const ans3 = document.getElementById('q1-select-3').value;
+            const ans4 = document.getElementById('q1-select-4').value;
+            const feedback = document.getElementById('q1-feedback');
+
+            feedback.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'bg-rose-100', 'text-rose-800');
+
+            if (ans1 === '刷牙' && ans2 === '运动' && ans3 === '睡觉' && ans4 === '洗脸') {
+                feedback.classList.add('bg-emerald-100', 'text-emerald-800');
+                feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> Excellent! All 4 action words are correct! / Syabas! Semua jawapan betul! 🎉';
+                markQuestionCompleted(1);
+            } else {
+                feedback.classList.add('bg-rose-100', 'text-rose-800');
+                feedback.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> Some choices are incorrect. Please try again / Sila semak jawapan anda.';
+            }
+        }
+
+        /* Question 2 Handler */
+        function checkQ2Sub(setNum, target, btn) {
+            const fb = document.getElementById(`q2-sub-fb-${setNum}`);
+            fb.classList.remove('hidden', 'text-emerald-600', 'text-rose-600');
+
+            document.querySelectorAll(`.q2-opt-${setNum}`).forEach(b => b.classList.remove('bg-blue-100', 'border-blue-500'));
+            btn.classList.add('bg-blue-100', 'border-blue-500');
+
+            const text = btn.querySelector('.chinese-text').innerText;
+            if (text === target) {
+                fb.classList.add('text-emerald-600');
+                fb.innerHTML = `✅ Correct! ${target} is the right answer! / Betul!`;
+                markQuestionCompleted(2);
+                speak(target);
+            } else {
+                fb.classList.add('text-rose-600');
+                fb.innerHTML = `❌ Incorrect. Try again / Kurang tepat.`;
+            }
+        }
+
+        /* Question 3 Matching Game */
+        const q3Pairs = [
+            { id: 1, pinyin: 'tiào yuǎn', char: '跳远' },
+            { id: 2, pinyin: 'jī dàn', char: '鸡蛋' },
+            { id: 3, pinyin: 'niú yóu', char: '牛油' },
+            { id: 4, pinyin: 'sài pǎo', char: '赛跑' },
+            { id: 5, pinyin: 'táng', char: '糖' }
+        ];
+
+        let selectedPinyin = null;
+        let matchedCount = 0;
+
+        function initQ3() {
+            const pColumn = document.getElementById('pinyin-column');
+            const cColumn = document.getElementById('character-column');
+            pColumn.innerHTML = '';
+            cColumn.innerHTML = '';
+
+            const shuffledChars = [...q3Pairs].sort(() => Math.random() - 0.5);
+
+            q3Pairs.forEach(pair => {
+                const btn = document.createElement('button');
+                btn.className = 'w-full text-left p-2.5 rounded-xl border border-slate-200 bg-white font-semibold text-sm hover:border-blue-400 transition pinyin-item';
+                btn.dataset.id = pair.id;
+                btn.innerHTML = `<span class="pinyin text-xs">${pair.pinyin}</span>`;
+                btn.onclick = () => selectPinyinItem(pair.id, btn);
+                pColumn.appendChild(btn);
+            });
+
+            shuffledChars.forEach(pair => {
+                const btn = document.createElement('button');
+                btn.className = 'w-full text-left p-2.5 rounded-xl border border-slate-200 bg-white font-semibold text-sm hover:border-blue-400 transition char-item';
+                btn.dataset.id = pair.id;
+                btn.innerHTML = `<span class="chinese-text text-base">${pair.char}</span>`;
+                btn.onclick = () => selectCharItem(pair.id, btn);
+                cColumn.appendChild(btn);
+            });
+        }
+
+        function selectPinyinItem(id, el) {
+            document.querySelectorAll('.pinyin-item').forEach(b => b.classList.remove('ring-2', 'ring-blue-500', 'bg-blue-50'));
+            el.classList.add('ring-2', 'ring-blue-500', 'bg-blue-50');
+            selectedPinyin = id;
+        }
+
+        function selectCharItem(id, el) {
+            const feedback = document.getElementById('q3-feedback');
+            if (!selectedPinyin) {
+                feedback.className = 'text-xs font-bold text-amber-600';
+                feedback.innerText = 'Select a Pinyin on the left first! / Pilih Pinyin terlebih dahulu!';
+                return;
+            }
+
+            if (selectedPinyin === id) {
+                el.classList.add('bg-emerald-100', 'border-emerald-400');
+                el.disabled = true;
+
+                const pEl = document.querySelector(`.pinyin-item[data-id="${selectedPinyin}"]`);
+                if (pEl) {
+                    pEl.classList.add('bg-emerald-100', 'border-emerald-400');
+                    pEl.disabled = true;
+                }
+
+                matchedCount++;
+                selectedPinyin = null;
+                feedback.className = 'text-xs font-bold text-emerald-600';
+                feedback.innerText = `Matched Correctly! / Padanan Betul! (${matchedCount}/5)`;
+
+                if (matchedCount === 5) {
+                    feedback.innerText = '🎉 Congratulations! All 5 pairs matched! / Syabas!';
+                    markQuestionCompleted(3);
+                }
+            } else {
+                feedback.className = 'text-xs font-bold text-rose-600';
+                feedback.innerText = 'Incorrect match. Try again! / Padanan tidak tepat.';
+            }
+        }
+
+        function resetMatching() {
+            selectedPinyin = null;
+            matchedCount = 0;
+            document.getElementById('q3-feedback').innerText = '';
+            initQ3();
+        }
+
+        /* Question 4 Handler */
+        function checkQ4(num, userAns, btn) {
+            const correctAns = [true, false, false];
+            const fb = document.getElementById(`q4-fb-${num}`);
+
+            if (userAns === correctAns[num-1]) {
+                fb.className = 'text-xs font-bold text-emerald-600';
+                fb.innerText = '✅ Correct! / Tepat sekali!';
+                markQuestionCompleted(4);
+            } else {
+                fb.className = 'text-xs font-bold text-rose-600';
+                fb.innerText = '❌ Incorrect. Check grammar / Sila semak semula.';
+            }
+        }
+
+        /* Question 5 Handler */
+        function checkQ5() {
+            const i1 = document.getElementById('q5-input-1').value.trim();
+            const i2 = document.getElementById('q5-input-2').value.trim();
+            const i3 = document.getElementById('q5-input-3').value.trim();
+            const i4 = document.getElementById('q5-input-4').value.trim();
+            const feedback = document.getElementById('q5-feedback');
+
+            feedback.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'bg-rose-100', 'text-rose-800');
+
+            if (i1 === '跑' && i2 === '睡' && i3 === '节' && i4 === '先') {
+                feedback.classList.add('bg-emerald-100', 'text-emerald-800');
+                feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> Great job! All 4 characters are correct! / Cemerlang! 🎉';
+                markQuestionCompleted(5);
+            } else {
+                feedback.classList.add('bg-rose-100', 'text-rose-800');
+                feedback.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> Check answers (1: 跑, 2: 睡, 3: 节, 4: 先)';
+            }
+        }
+
+        /* Question 6 Handler */
+        function checkQ6() {
+            const targets = [
+                '我们在庆祝马来西亚日。',
+                '我参加跳远了。',
+                '我一边吃饭一边喝水。',
+                '我先吃饭然后睡觉。',
+                '今天是光明节。'
+            ];
+
+            let correctCount = 0;
+            for (let i = 1; i <= 5; i++) {
+                const val = document.getElementById(`q6-input-${i}`).value.trim();
+                if (val === targets[i-1]) correctCount++;
+            }
+
+            const feedback = document.getElementById('q6-feedback');
+            feedback.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'bg-rose-100', 'text-rose-800');
+
+            if (correctCount === 5) {
+                feedback.classList.add('bg-emerald-100', 'text-emerald-800');
+                feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> Excellent! All 5 sentences rewritten accurately with full stop! 🌟';
+                markQuestionCompleted(6);
+            } else {
+                feedback.classList.add('bg-rose-100', 'text-rose-800');
+                feedback.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> Score: ${correctCount}/5. Remember to include full stop ( 。 ).`;
+            }
+        }
+
+        /* Question 7 Radical Sorting Table Game */
+        const q7PoolData = [
+            { char: '看', pinyin: 'kàn', radical: '目' },
+            { char: '眼', pinyin: 'yǎn', radical: '目' },
+            { char: '瞧', pinyin: 'qiáo', radical: '目' },
+            { char: '瞒', pinyin: 'mán', radical: '目' },
+            { char: '睛', pinyin: 'jīng', radical: '目' },
+            { char: '时', pinyin: 'shí', radical: '日' },
+            { char: '晚', pinyin: 'wǎn', radical: '日' },
+            { char: '昨', pinyin: 'zuó', radical: '日' },
+            { char: '早', pinyin: 'zǎo', radical: '日' },
+            { char: '间', pinyin: 'jiān', radical: '日' }
+        ];
+
+        let selectedPoolChar = null;
+        let q7MuList = [];
+        let q7RiList = [];
+
+        function initQ7Table() {
+            const poolEl = document.getElementById('q7-pool');
+            poolEl.innerHTML = '';
+            
+            q7PoolData.forEach((item, index) => {
+                const btn = document.createElement('button');
+                btn.id = `q7-pool-item-${index}`;
+                btn.className = 'bg-slate-100 border border-slate-300 hover:border-indigo-500 rounded-xl px-3 py-1.5 font-bold text-sm text-slate-800 transition flex items-center gap-1.5 cursor-pointer';
+                btn.innerHTML = `<span class="pinyin text-[10px] block font-normal">${item.pinyin}</span> <span class="chinese-text text-base">${item.char}</span>`;
+                btn.onclick = () => selectQ7PoolChar(item, btn);
+                poolEl.appendChild(btn);
+            });
+
+            document.getElementById('q7-col-mu').onclick = () => placeQ7Char('目');
+            document.getElementById('q7-col-ri').onclick = () => placeQ7Char('日');
+
+            q7MuList = [];
+            q7RiList = [];
+            renderQ7Cols();
+        }
+
+        function selectQ7PoolChar(item, btn) {
+            document.querySelectorAll('#q7-pool button').forEach(b => b.classList.remove('ring-2', 'ring-indigo-600', 'bg-indigo-50'));
+            btn.classList.add('ring-2', 'ring-indigo-600', 'bg-indigo-50');
+            selectedPoolChar = item;
+        }
+
+        function placeQ7Char(targetRadical) {
+            if (!selectedPoolChar) return;
+
+            const poolBtn = document.querySelector(`#q7-pool button.ring-2`);
+            if (poolBtn) poolBtn.remove();
+
+            if (targetRadical === '目') {
+                q7MuList.push(selectedPoolChar);
+            } else {
+                q7RiList.push(selectedPoolChar);
+            }
+
+            selectedPoolChar = null;
+            renderQ7Cols();
+        }
+
+        function renderQ7Cols() {
+            const muCol = document.getElementById('q7-col-mu');
+            const riCol = document.getElementById('q7-col-ri');
+
+            muCol.innerHTML = q7MuList.length === 0 ? '<span class="text-xs text-slate-400 w-full text-center my-auto pointer-events-none">Click selected character above to place in 目 column...</span>' : '';
+            riCol.innerHTML = q7RiList.length === 0 ? '<span class="text-xs text-slate-400 w-full text-center my-auto pointer-events-none">Click selected character above to place in 日 column...</span>' : '';
+
+            q7MuList.forEach(item => {
+                const badge = document.createElement('span');
+                badge.className = 'bg-indigo-100 text-indigo-900 border border-indigo-200 px-2.5 py-1 rounded-lg text-sm font-bold chinese-text';
+                badge.innerText = `${item.char} (${item.pinyin})`;
+                muCol.appendChild(badge);
+            });
+
+            q7RiList.forEach(item => {
+                const badge = document.createElement('span');
+                badge.className = 'bg-amber-100 text-amber-900 border border-amber-200 px-2.5 py-1 rounded-lg text-sm font-bold chinese-text';
+                badge.innerText = `${item.char} (${item.pinyin})`;
+                riCol.appendChild(badge);
+            });
+        }
+
+        function checkQ7Table() {
+            const feedback = document.getElementById('q7-feedback');
+            feedback.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'bg-rose-100', 'text-rose-800');
+
+            const muCorrect = q7MuList.every(i => i.radical === '目') && q7MuList.length === 5;
+            const riCorrect = q7RiList.every(i => i.radical === '日') && q7RiList.length === 5;
+
+            if (muCorrect && riCorrect) {
+                feedback.classList.add('bg-emerald-100', 'text-emerald-800');
+                feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> Outstanding! All 10 characters are accurately classified into 目 and 日 radical tables! 🎉';
+                markQuestionCompleted(7);
+            } else {
+                feedback.classList.add('bg-rose-100', 'text-rose-800');
+                feedback.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> Classification incomplete or contains errors. Please review and try again.';
+            }
+        }
+
+        function resetQ7Table() {
+            selectedPoolChar = null;
+            document.getElementById('q7-feedback').classList.add('hidden');
+            initQ7Table();
+        }
+
+        /* Question 8 Handler */
+        function checkQ8() {
+            const p1 = document.getElementById('q8-input-1').value;
+            const p2 = document.getElementById('q8-input-2').value;
+            const p3 = document.getElementById('q8-input-3').value;
+            const p4 = document.getElementById('q8-input-4').value;
+            const p5 = document.getElementById('q8-input-5').value;
+
+            const feedback = document.getElementById('q8-feedback');
+            feedback.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'bg-rose-100', 'text-rose-800');
+
+            if (p1 === '、' && p2 === '。' && p3 === '？' && p4 === '。' && p5 === '。') {
+                feedback.classList.add('bg-emerald-100', 'text-emerald-800');
+                feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> Great job! Punctuation marks in all 4 sentences are correct! 🎯';
+                markQuestionCompleted(8);
+            } else {
+                feedback.classList.add('bg-rose-100', 'text-rose-800');
+                feedback.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> Some punctuation marks are incorrect. Note: Enumeration uses 顿号 ( 、 ), Question uses 问号 ( ？ ).';
+            }
+        }
+
+        /* Question 9 Sentence Construction */
+        const q9State = { 1: [], 2: [], 3: [] };
+
+        function addWordToSentence(setNum, word) {
+            q9State[setNum].push(word);
+            renderConstructedSentence(setNum);
+        }
+
+        function renderConstructedSentence(setNum) {
+            const container = document.getElementById(`constructed-sentence-${setNum}`);
+            container.innerHTML = '';
+
+            if (q9State[setNum].length === 0) {
+                container.innerHTML = '<span class="text-xs text-slate-400">Click word tiles above to arrange sentence...</span>';
+                return;
+            }
+
+            q9State[setNum].forEach(word => {
+                const span = document.createElement('span');
+                span.className = 'bg-blue-100 text-blue-900 border border-blue-200 px-2.5 py-1 rounded-lg text-sm font-bold chinese-text mr-1';
+                span.innerText = word;
+                container.appendChild(span);
+            });
+        }
+
+        function clearQ9Set(setNum) {
+            q9State[setNum] = [];
+            renderConstructedSentence(setNum);
+            document.getElementById(`q9-feedback-${setNum}`).classList.add('hidden');
+        }
+
+        function checkQ9Set(setNum, target) {
+            const result = q9State[setNum].join('');
+            const feedback = document.getElementById(`q9-feedback-${setNum}`);
+            feedback.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'bg-rose-100', 'text-rose-800');
+
+            if (result === target) {
+                feedback.classList.add('bg-emerald-100', 'text-emerald-800');
+                feedback.innerHTML = `<i class="fa-solid fa-circle-check"></i> Excellent! Sentence correctly formed: "${target}" 👏`;
+                markQuestionCompleted(9);
+                speak(target);
+            } else {
+                feedback.classList.add('bg-rose-100', 'text-rose-800');
+                feedback.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> Incorrect order. Please click Clear and try again.`;
+            }
+        }
+
+        /* Initialize Page Games */
+        window.onload = function() {
+            initQ3();
+            initQ7Table();
+        };
+    </script>
+</body>
+</html>
